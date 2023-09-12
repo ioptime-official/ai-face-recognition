@@ -1,6 +1,6 @@
-# Face Verification
+# Face Recognition
 
-This project focuses on implementing face verification using the ArcFace model on a dataset that predominantly contains individuals with darker skin tones. The project also utilizes a lightweight face detection model, OpenCV, to enhance processing speed.
+This project focuses on implementing face Recognition using the ArcFace model on a dataset that predominantly contains individuals with darker skin tones. The project also utilizes a lightweight face detection model, OpenCV, to enhance processing speed.
 
 ## Objective
 
