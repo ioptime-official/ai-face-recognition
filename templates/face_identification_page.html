@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+</head>
+
+<body>
+    <div class="content">
+        <div class="text">
+            Face Recognition
+        </div>
+
+
+        <form action="/face_identification" method="POST" enctype="multipart/form-data">
+            
+            <input type="file" id="image" name="image" accept="image/*" required><br><br>
+
+            <!-- <input type="submit" value="Recognize Face"> -->
+            <button class="login-btn" type="submit">Recognize Face</button>
+        </form>
+    </div>
+
+    <!-- Display the API response here -->
+    <div id="apiResponse">
+        <!-- The API response will be displayed here -->
+    </div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('/face_identification', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json()) // Parse the JSON data here
+                .then(data => {
+                    // Handle the parsed JSON data
+                    console.log(data); // Log the data to the console
+                    // Update the page with the API response (e.g., display a message)
+                    alert(data.result); // Access the specific property you want to display (e.g., data.message)
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>

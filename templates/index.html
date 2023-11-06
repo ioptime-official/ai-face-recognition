@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <title>Face Recognition</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+<style>
+
+</style>
+  <body>
+    <div class="container"><center><h2>Face Recognition</h2></center>
+      <div class="col-lg-offset-2 col-lg-8">
+        <center><form  class="form-inline" action = "/stop" method = "post" enctype="multipart/form-data">          
+          <button type = "submit" class="login-btn" value="Return">Return</button>
+             </form></center>
+                <!-- <center><form  class="form-inline" action = "/start" method = "post" enctype="multipart/form-data">          
+          <input type = "submit" class="btn btn-success btn-md btn-block" value="Start">
+             </form></center><br></div> -->
+                    <div class="col-lg-offset-2 col-lg-8">
+         <img src="{{ url_for('video_capture') }}" width="100%">
+        </div></div>
+    </body>
+</html>

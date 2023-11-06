@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        body {
+            width: 100%;
+            margin: 0;
+            place-items: center;
+            padding: 0;
+        }
+        .content{
+  width: 80%;
+  padding: 40px 30px;
+  place-items: center;
+  background: #dde1e7;
+  border-radius: 10px;
+  box-shadow: -3px -3px 7px #ffffff73,
+               2px 2px 5px rgba(94,104,121,0.288);
+}
+        .admin-page {
+
+            height: 100vh;
+            padding: 50px;
+            background-color: #f1f1f1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #6b718d;
+            color: white;
+        }
+
+        .edit-button, .delete-button {
+            margin: 15px 0;
+  width: 100%;
+  height: 50px;
+  font-size: 18px;
+  line-height: 50px;
+  font-weight: 600;
+  background: #dde1e7;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #595959;
+  box-shadow: 2px 2px 5px #BABECC,
+             -5px -5px 10px #ffffff73;
+        }
+    </style>
+</head>
+
+<body><center>
+    <div class="content"><center>
+        <h1>User List</h1></center>
+        <table id="user-table">
+            <thead>
+                <tr>
+                    <th>Face</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- User rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const userTable = document.getElementById("user-table");
+
+    // Fetch user data from the server or API
+    fetch("/list_users")
+        .then(response => response.json())
+        .then(data => {
+            // Populate the table with dynamic user data
+            data.users.forEach(user => {
+                const imageURL = `user_faces/${user.name}.png`;// Assuming images are named after user names
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td><img src="${imageURL}" alt="${user.name}" style="width: 80px; height: 90px;"></td>
+                    <td>${user.name}</td>
+                    <td>
+                        <button class="edit-button">Edit</button>
+                        <button class="delete-button">Delete</button>
+                    </td>
+                `;
+                userTable.querySelector("tbody").appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching user data: ", error);
+        });
+
+
+        });
+    </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const userTable = document.getElementById("user-table");
+
+    // Function to handle edit button click
+    function handleEditButtonClick(name) {
+        const newName = prompt("Enter new name:");
+        if (newName) {
+            fetch(`/edit_user?name=${encodeURIComponent(name)}&new_name=${encodeURIComponent(newName)}`, {
+                method: 'PUT',
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log(`User ${name} edited successfully to ${newName}.`);
+                } else {
+                    console.error(`Error editing user ${name}.`);
+                }
+                location.reload();
+            })
+            .catch(error => {
+                console.error(`Error editing user ${name}: `, error);
+            });
+        } else {
+            console.log("User cancelled the operation.");
+        }
+    }
+
+    // Function to handle delete button click
+    function handleDeleteButtonClick(name) {
+        fetch(`/delete_user2?name=${encodeURIComponent(name)}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (response.ok) {
+                const rows = Array.from(userTable.querySelectorAll("tbody tr"));
+                const rowToDelete = rows.find(row => row.cells[1].textContent === name);
+                if (rowToDelete) {
+                    rowToDelete.remove();
+                    console.log('User deleted successfully.');
+                }
+            } else {
+                console.error('Error deleting user:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Network error:', error);
+        });
+    }
+
+    // Attach click event listeners to edit and delete buttons
+    userTable.addEventListener("click", function (event) {
+        const target = event.target;
+        if (target.classList.contains("edit-button")) {
+            const parentRow = target.closest("tr");
+            const userName = parentRow.cells[1].textContent;
+            handleEditButtonClick(userName);
+        } else if (target.classList.contains("delete-button")) {
+            const parentRow = target.closest("tr");
+            const userName = parentRow.cells[1].textContent;
+            handleDeleteButtonClick(userName);
+        }
+    });
+});
+
+    </script>
+</body></center>
+
+</html>

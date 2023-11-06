@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+    <div class="content">
+        <div class="text">
+            Register User
+         </div>
+    <form action="/register_user" method="post" enctype="multipart/form-data">
+
+        <div class="field">
+        <input type="text" id="name" name="name" placeholder="Username" required></div>
+
+        <input type="file" id="image" name="image" accept="image/*" required><br><br>
+        <button class="login-btn" type="submit">Register</button>
+    </form>
+    <div id="apiResponse">
+    </div>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('/register_user', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the page with the API response (e.g., display a message)
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+    
+</body>
+</html>

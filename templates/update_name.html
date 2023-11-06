@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+    <div class="content">
+        <div class="text">
+            type new name for user "{{ name }}"
+         </div>
+    <form action="/search_user" method="post">
+
+
+        <div class="field">
+            <input type="text" id="username" name="new_username" placeholder="New username" required>
+        </div>
+        <button class="login-btn" type="submit">Confirm</button>
+    </form>
+
+    <!-- Display the API response here -->
+    <div id="apiResponse">
+        <!-- The API response will be displayed here -->
+    </div>
+
+</body>
+</html>
