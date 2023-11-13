@@ -83,7 +83,6 @@ Welcome to our Face Recognition project! This project utilizes Flask API to crea
    - Open your web browser and go to `http://localhost:5000`.
   
 ## Important Notes
-
 - Ensure that you have a compatible device with a camera for real-time face recognition.
 - We are using cosine similarity to find the match
 - Proper lighting conditions are essential for accurate face detection and recognition.
