@@ -85,5 +85,6 @@ Welcome to our Face Recognition project! This project utilizes Flask API to crea
 ## Important Notes
 
 - Ensure that you have a compatible device with a camera for real-time face recognition.
+- We are using cosine similarity to find the match
 - Proper lighting conditions are essential for accurate face detection and recognition.
 - Make sure to set up the MySQL database and update the database configuration in the Flask app before running the application.
