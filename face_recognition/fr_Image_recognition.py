@@ -3,7 +3,7 @@ import numpy as np
 import json
 import os
 
-def find_person2(input_embedding, threshold=0.70):
+def find_person2(input_embedding, threshold=0.40):
     input_embedding = np.array(input_embedding) / np.linalg.norm(input_embedding)
     conn = mysql.connector.connect(
         host="127.0.0.1",
